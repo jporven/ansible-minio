@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/jporven/ansible-minio.svg?branch=master)](https://travis-ci.com/github/jporven/ansible-minio)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
-Original:
+**Original:**
 [Ansible Role: Minio](https://github.com/atosatto/ansible-minio)
 # Ansible Role: Minio
 <!--
@@ -13,7 +13,7 @@ Original:
 [![GitHub tag](https://img.shields.io/github/tag/atosatto/ansible-minio.svg)](https://github.com/atosatto/ansible-minio/tags)
 -->
 Install and configure the [Minio](https://minio.io/) S3 compatible object storage server
-on RHEL/CentOS and Debian/Ubuntu.
+on RHEL/CentOS.
 
 ## Requirements
 
@@ -134,7 +134,7 @@ None.
   hosts: all
   become: yes
   roles:
-    - { role: atosatto.minio }
+    - { role: ansible-minio-centos }
   vars:
     minio_server_datadirs: [ "/minio-test" ]
 ```
