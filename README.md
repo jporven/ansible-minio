@@ -1,6 +1,6 @@
 <p><img src="https://avatars0.githubusercontent.com/u/695951?s=200&v=4" alt="minio logo" title="minio" align="right" height="60" /></p>
 
-[![Build Status](https://travis-ci.org/jporven/ansible-minio.svg?branch=master)](https://travis-ci.org/jporven/ansible-minio)
+[![Build Status](https://travis-ci.org/jporven/ansible-minio.svg?branch=master)](https://travis-ci.com/github/jporven/ansible-minio)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 Original:
