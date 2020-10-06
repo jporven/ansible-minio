@@ -27,4 +27,4 @@ def test_directories(host, AnsibleDefaults, minio_datadir):
     assert d.exists
     assert d.user == AnsibleDefaults['minio_user']
     assert d.group == AnsibleDefaults['minio_group']
-    assert oct(d.mode) == '0750'
+    assert oct(d.mode) == '0o750'

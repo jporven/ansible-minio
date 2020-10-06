@@ -113,6 +113,11 @@ minio_install_client: true
 
 Switches to disable minio server and/or minio client installation.
 
+```yaml
+minio_download_local: false
+```
+Download software packages in Ansible controller and copy to nodes (Air Gap installation) 
+
 ## Dependencies
 
 None.

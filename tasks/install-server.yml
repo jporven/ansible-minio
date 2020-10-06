@@ -35,7 +35,7 @@
     state: directory
     owner: "{{ minio_user }}"
     group: "{{ minio_group }}"
-    mode: 0750
+    mode: "0750"
   when: minio_server_make_datadirs
   with_items: "{{ minio_server_datadirs }}"
 
@@ -45,13 +45,38 @@
     dest: "{{ minio_server_bin }}"
     owner: "root"
     group: "root"
-    mode: 0755
+    mode: "0755"
     checksum: "sha256:{{ _minio_server_checksum }}"
   register: _download_server
   until: _download_server is succeeded
   retries: 5
   delay: 2
   notify: restart minio
+  when: not minio_download_local
+
+- name: Download minio locally and copy to server
+  block:
+    - name: Download the MinIO server locally
+      get_url:
+        url: "{{ _minio_server_download_url }}"
+        dest: "/var/tmp/minio"
+        mode: "0755"
+        checksum: "sha256:{{ _minio_server_checksum }}"
+      register: _download_server
+      until: _download_server is succeeded
+      retries: 5
+      delay: 2
+      delegate_to: localhost
+
+    - name: Copy minio to server
+      copy:
+        dest: "{{ minio_server_bin }}"
+        src: /var/tmp/minio
+        group: root
+        mode: "0755"
+        owner: root
+      notify: restart minio
+  when: minio_download_local
 
 - name: Generate the Minio server envfile
   template:
@@ -59,15 +84,16 @@
     dest: "{{ minio_server_envfile }}"
     owner: "root"
     group: "{{ minio_group }}"
-    mode: 0640
+    mode: "0640"
   notify: restart minio
 
 - name: Create the Minio server systemd config
   template:
     src: minio.service.j2
     dest: "/etc/systemd/system/minio.service"
-    owner: "root"
-    group: "root"
+    owner: root
+    group: root
+    mode: 0640
   when: ansible_service_mgr == "systemd"
   notify:
     - reload minio systemd
@@ -79,12 +105,6 @@
     dest: "/etc/init.d/minio"
     owner: "root"
     group: "root"
-    mode: 0750
+    mode: "0750"
   when: ansible_service_mgr != "systemd"
   notify: restart minio
-
-- name: Enable and start the Minio service
-  service:
-    name: minio
-    state: started
-    enabled: true
