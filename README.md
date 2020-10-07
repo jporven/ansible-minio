@@ -13,7 +13,7 @@
 [![GitHub tag](https://img.shields.io/github/tag/atosatto/ansible-minio.svg)](https://github.com/atosatto/ansible-minio/tags)
 -->
 Install and configure the [Minio](https://minio.io/) S3 compatible object storage server
-on RHEL/CentOS and Debian/Ubuntu.
+on RHEL/CentOS.
 
 ## Requirements
 
@@ -134,7 +134,7 @@ None.
   hosts: all
   become: yes
   roles:
-    - { role: atosatto.minio }
+    - { role: ansible-minio-centos }
   vars:
     minio_server_datadirs: [ "/minio-test" ]
 ```
